@@ -8,7 +8,6 @@ public class ResumeForgeAiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ResumeForgeAiApplication.class, args);
-		System.out.println("Hello World");
 	}
 
 }
