@@ -2,19 +2,22 @@ package com.ResumeForge.ResumeForgeAI.Services;
 
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ResumeForge.ResumeForgeAI.Models.ResumeAnalysis;
 
 @Service
 public class ResumeAnalysisService {
-	 private final GeminiService geminiService;
-	    private final PdfTextExtractorService pdfService;
+	@Autowired
+	 private GeminiService geminiService;
+	@Autowired
+	    private PdfTextExtractorService pdfService;
 
-	    public ResumeAnalysisService(GeminiService geminiService, PdfTextExtractorService pdfService) {
-	        this.geminiService = geminiService;
-	        this.pdfService = pdfService;
-	    }
+//	    public ResumeAnalysisService(GeminiService geminiService, PdfTextExtractorService pdfService) {
+//	        this.geminiService = geminiService;
+//	        this.pdfService = pdfService;
+//	    }
 
 	    public ResumeAnalysis analyzeResume(String resumeText, String jobDescription) {
 	        try {

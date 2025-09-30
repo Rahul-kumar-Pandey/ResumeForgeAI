@@ -2,6 +2,7 @@ package com.ResumeForge.ResumeForgeAI.Conrollers;
 
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +20,15 @@ import com.ResumeForge.ResumeForgeAI.Services.ResumeAnalysisService;
 @RequestMapping("/api/resume")
 @CrossOrigin(origins = "*")
 public class ResumeController {
-	private final ResumeAnalysisService analysisService;
-    private final PdfTextExtractorService pdfService;
+	@Autowired
+	private  ResumeAnalysisService analysisService;
+	@Autowired
+    private  PdfTextExtractorService pdfService;
     
-    public ResumeController(ResumeAnalysisService analysisService, PdfTextExtractorService pdfService) {
-        this.analysisService = analysisService;
-        this.pdfService = pdfService;
-    }
+//    public ResumeController(ResumeAnalysisService analysisService, PdfTextExtractorService pdfService) {
+//        this.analysisService = analysisService;
+//        this.pdfService = pdfService;
+//    }
     @PostMapping("/analyze")
     public ResponseEntity<Map<String, Object>> analyzeResume(
             @RequestParam("resume") MultipartFile resume,

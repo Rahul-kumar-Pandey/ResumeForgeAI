@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -22,15 +23,19 @@ public class GeminiService {
     @Value("${gemini.api.model}")
     private String model;
 
-    private final RestTemplate restTemplate;
+   
 
-    public GeminiService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+//    public GeminiService(RestTemplate restTemplate) {
+//        this.restTemplate = restTemplate;
+//    }
     
     public String generateContent(String prompt) {
-        String url = String.format("%s/%s:generateContent?key=%s", baseUrl, model, apiKey);
-
+    	String modelName = "gemini-1.5-flash";
+        //String url = String.format("%s/%s:generateContent?key=%s", baseUrl, model, apiKey);
+    	String url=String.format(
+    		    "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent?key=%s",
+    		    modelName, apiKey
+    		);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -51,6 +56,7 @@ public class GeminiService {
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
 
         try {
+            RestTemplate restTemplate=new RestTemplate();
             ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.POST, entity, Map.class);
             return extractGeneratedText(response.getBody());
         } catch (Exception e) {
